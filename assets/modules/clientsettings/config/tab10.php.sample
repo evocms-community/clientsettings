@@ -1,0 +1,36 @@
+<?php
+
+return [
+    'caption' => 'Информация о компании',
+    'settings' => [
+        'company_logo' => [
+            'caption' => 'Логотип',
+            'type' => 'image',
+            'note' => 'Если не указан, будет использован логотип по умолчанию',
+        ],
+        'company_address' => [
+            'caption' => 'Адрес компании',
+            'type'  => 'text',
+        ],
+        'company_phone' => [
+            'caption' => 'Контактный телефон компании',
+            'type'  => 'text',
+        ],
+        'company_email' => [
+            'caption' => 'Контактный email компании',
+            'type'  => 'text',
+        ],
+        'head_text' => [
+            'caption' => 'Текст в шапке',
+            'type'  => 'textarea',
+        ],
+        'policy' => [
+            'caption' => 'Политика конфиденциальности',
+            'type' => 'file',
+        ],
+        'test' => [
+            'caption' => 'test',
+            'type' => 'custom_tv:multitv',
+        ],
+    ],
+];
