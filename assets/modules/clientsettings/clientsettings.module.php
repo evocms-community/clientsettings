@@ -58,82 +58,90 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
 
 ?>
 
-<form name="settings" method="post" id="mutate">
-    <h1>
-        <i class="fa fa-cog"></i><?= $title ?> 
-    </h1>
+<h1>
+    <i class="fa fa-cog"></i><?= $title ?> 
+</h1>
     
-    <div id="actions">
-        <div class="btn-group">
-            <button id="Button1" class="btn btn-success" type="submit" onclick="documentDirty = false;">
-                <i class="fa fa-floppy-o"></i><span><?= $_lang['save'] ?></span>
-            </button>
-
-            <a id="Button5" class="btn btn-secondary" href="<?= $managerPath ?>index.php?a=2">
-                <i class="fa fa-times-circle"></i><span><?= $_lang['cancel'] ?></span>
-            </a>
+<?php if (empty($tabs)): ?>
+    <div class="tab-page">
+        <div class="container-body">
+            Configuration not found. Rename <code>assets/modules/clientsettings/config/*.sample</code> files or create new ones.
         </div>
     </div>
+<?php else: ?>
+    <form name="settings" method="post" id="mutate">
+        <div id="actions">
+            <div class="btn-group">
+                <button id="Button1" class="btn btn-success" type="submit" onclick="documentDirty = false;">
+                    <i class="fa fa-floppy-o"></i><span><?= $_lang['save'] ?></span>
+                </button>
 
-    <div class="sectionBody" id="settingsPane">
-        <div class="dynamic-tab-pane-control tab-pane" id="documentPane">
-            <script type="text/javascript">
-                var tpSettings = new WebFXTabPane(document.getElementById('documentPane'), <?= ($modx->config['remember_last_tab'] == 1 ? 'true' : 'false') ?> );
-            </script> 
-
-            <?php foreach ($tabs as $name => $tab): ?>
-                <div class="tab-page" id="tab_<?= $name ?>">
-                    <h2 class="tab"><?= $tab['caption'] ?></h2>
-        
-                    <script type="text/javascript">
-                        tpSettings.addTabPage(document.getElementById('tab_<?= $name ?>'));
-                    </script>
-        
-                    <table border="0" cellspacing="0" cellpadding="3">
-                        <?php foreach ($tab['settings'] as $field => $options): ?>
-                            <tr>
-                                <td class="warning" nowrap="">
-                                    <?= $options['caption'] ?><br>
-                                    <small>[(<?= $params['prefix'] . $field ?>)]</small>
-                                </td>
-
-                                <td data-type="<?= $options['type'] ?>">
-                                    <?= renderFormElement(
-                                        $options['type'],
-                                        $field,
-                                        '',
-                                        isset($options['elements']) ? $options['elements'] : '',
-                                        trim($modx->getConfig($params['prefix'] . $field)),
-                                        isset($options['style']) ? 'style="' . $options['style'] . '"' : '',
-                                        [
-                                            'type' => $options['type'],
-                                            'name' => $field,
-                                            'caption' => $options['caption'],
-                                            'id' => $field,
-                                            'default_text' => '',
-                                            'value' => $modx->getConfig($params['prefix'] . $field),
-                                            'elements' => isset($options['elements']) ? $options['elements'] : '',
-                                        ]
-                                    ); ?>
-
-                                    <?php if (isset($options['note'])): ?>
-                                        <div class="comment">
-                                            <?= $options['note'] ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td colspan="2"><div class="split"></div></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
-            <?php endforeach; ?>
+                <a id="Button5" class="btn btn-secondary" href="<?= $managerPath ?>index.php?a=2">
+                    <i class="fa fa-times-circle"></i><span><?= $_lang['cancel'] ?></span>
+                </a>
+            </div>
         </div>
-    </div>
-</form>
+
+        <div class="sectionBody" id="settingsPane">
+            <div class="dynamic-tab-pane-control tab-pane" id="documentPane">
+                <script type="text/javascript">
+                    var tpSettings = new WebFXTabPane(document.getElementById('documentPane'), <?= ($modx->config['remember_last_tab'] == 1 ? 'true' : 'false') ?> );
+                </script> 
+
+                <?php foreach ($tabs as $name => $tab): ?>
+                    <div class="tab-page" id="tab_<?= $name ?>">
+                        <h2 class="tab"><?= $tab['caption'] ?></h2>
+            
+                        <script type="text/javascript">
+                            tpSettings.addTabPage(document.getElementById('tab_<?= $name ?>'));
+                        </script>
+            
+                        <table border="0" cellspacing="0" cellpadding="3">
+                            <?php foreach ($tab['settings'] as $field => $options): ?>
+                                <tr>
+                                    <td class="warning" nowrap="">
+                                        <?= $options['caption'] ?><br>
+                                        <small>[(<?= $params['prefix'] . $field ?>)]</small>
+                                    </td>
+
+                                    <td data-type="<?= $options['type'] ?>">
+                                        <?= renderFormElement(
+                                            $options['type'],
+                                            $field,
+                                            '',
+                                            isset($options['elements']) ? $options['elements'] : '',
+                                            trim($modx->getConfig($params['prefix'] . $field)),
+                                            isset($options['style']) ? 'style="' . $options['style'] . '"' : '',
+                                            [
+                                                'type' => $options['type'],
+                                                'name' => $field,
+                                                'caption' => $options['caption'],
+                                                'id' => $field,
+                                                'default_text' => '',
+                                                'value' => $modx->getConfig($params['prefix'] . $field),
+                                                'elements' => isset($options['elements']) ? $options['elements'] : '',
+                                            ]
+                                        ); ?>
+
+                                        <?php if (isset($options['note'])): ?>
+                                            <div class="comment">
+                                                <?= $options['note'] ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2"><div class="split"></div></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </form>
+<?php endif; ?>
 
 <?php
 
