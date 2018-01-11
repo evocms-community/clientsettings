@@ -47,23 +47,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+$userlang    = $modx->getConfig('manager_language');
+$_customlang = include MODX_BASE_PATH . 'assets/modules/clientsettings/lang.php';
+$title       = isset($_customlang[$userlang]) ? $_customlang[$userlang] : reset($_customlang);
+$_lang       = [];
+
+include MODX_MANAGER_PATH . 'includes/lang/' . $userlang . '.inc.php';
+
 include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
 
 ?>
 
 <form name="settings" method="post" id="mutate">
     <h1>
-        <i class="fa fa-cog"></i>Настройки сайта
+        <i class="fa fa-cog"></i><?= $title ?> 
     </h1>
     
     <div id="actions">
         <div class="btn-group">
             <button id="Button1" class="btn btn-success" type="submit" onclick="documentDirty = false;">
-                <i class="fa fa-floppy-o"></i><span>Сохранить</span>
+                <i class="fa fa-floppy-o"></i><span><?= $_lang['save'] ?></span>
             </button>
 
             <a id="Button5" class="btn btn-secondary" href="<?= $managerPath ?>index.php?a=2">
-                <i class="fa fa-times-circle"></i><span>Отмена</span>
+                <i class="fa fa-times-circle"></i><span><?= $_lang['cancel'] ?></span>
             </a>
         </div>
     </div>
@@ -137,6 +144,9 @@ if (is_readable($mmPath)) {
 
     if (isset($jsUrls['ddTools'])) {
         ?>
+            <script>
+                $j = jQuery;
+            </script>
             <script src="<?= $jsUrls['mm']['url'] ?>"></script>
             <script src="<?= $jsUrls['ddTools']['url'] ?>"></script>
             <script src="<?= $modx->config['site_url'] . 'assets/plugins/managermanager/widgets/showimagetvs/jquery.ddMM.mm_widget_showimagetvs.js' ?>"></script>
