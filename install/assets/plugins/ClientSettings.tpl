@@ -4,7 +4,7 @@
  * Creates menu item for user module ClientSettings
  *
  * @category    plugin
- * @version     1.0.1
+ * @version     1.0.2
  * @author      mnoskov
  * @internal    @events OnManagerMenuPrerender
  * @internal    @modx_category Manager and Admin
