@@ -105,22 +105,26 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
                                     </td>
 
                                     <td data-type="<?= $options['type'] ?>">
+                                        <?php
+                                            $row = [
+                                                'type'         => $options['type'],
+                                                'name'         => $field,
+                                                'caption'      => $options['caption'],
+                                                'id'           => $field,
+                                                'default_text' => isset($options['default_text']) ? $options['default_text'] : '',
+                                                'value'        => $modx->getConfig($params['prefix'] . $field),
+                                                'elements'     => isset($options['elements']) ? $options['elements'] : '',
+                                            ];
+                                        ?>
+
                                         <?= renderFormElement(
-                                            $options['type'],
-                                            $field,
+                                            $row['type'],
+                                            $row['name'],
                                             '',
-                                            isset($options['elements']) ? $options['elements'] : '',
-                                            trim($modx->getConfig($params['prefix'] . $field)),
+                                            $row['elements'],
+                                            $row['value'] !== false ? $row['value'] : $row['default_text'],
                                             isset($options['style']) ? 'style="' . $options['style'] . '"' : '',
-                                            [
-                                                'type' => $options['type'],
-                                                'name' => $field,
-                                                'caption' => $options['caption'],
-                                                'id' => $field,
-                                                'default_text' => '',
-                                                'value' => $modx->getConfig($params['prefix'] . $field),
-                                                'elements' => isset($options['elements']) ? $options['elements'] : '',
-                                            ]
+                                            $row
                                         ); ?>
 
                                         <?php if (isset($options['note'])): ?>
