@@ -1,32 +1,28 @@
 <?php
 
 return [
-    'caption' => 'Информация о компании',
+    'caption' => 'Company',
     'settings' => [
         'company_logo' => [
-            'caption' => 'Логотип',
+            'caption' => 'Logotype',
             'type' => 'image',
-            'note' => 'Если не указан, будет использован логотип по умолчанию',
+            'note' => 'If empty, will be default',
         ],
         'company_address' => [
-            'caption' => 'Адрес компании',
+            'caption' => 'Address',
             'type'  => 'text',
         ],
         'company_phone' => [
-            'caption' => 'Контактный телефон компании',
+            'caption' => 'Phone',
             'type'  => 'text',
         ],
         'company_email' => [
-            'caption' => 'Контактный email компании',
+            'caption' => 'Email',
             'type'  => 'text',
         ],
         'head_text' => [
-            'caption' => 'Текст в шапке',
+            'caption' => 'Header text',
             'type'  => 'textarea',
-        ],
-        'policy' => [
-            'caption' => 'Политика конфиденциальности',
-            'type' => 'file',
         ],
         'test' => [
             'caption' => 'test',
