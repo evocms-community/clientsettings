@@ -42,6 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $modx->db->query("REPLACE INTO " . $modx->getFullTableName('system_settings') . " (setting_name, setting_value) VALUES " . implode(', ', array_map(function($row) use ($modx) {
             return "('" . $modx->db->escape($row[0]) . "', '" . $modx->db->escape($row[1]) . "')";
         }, $fields)));
+
+        $modx->invokeEvent('OnDocFormSave', [
+            'mode' => 'upd',
+            'id'   => 0
+        ]);
+
         $modx->clearCache('full');
         $modx->sendRedirect('index.php?a=7&r=10');
     }
