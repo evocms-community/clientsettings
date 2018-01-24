@@ -103,6 +103,15 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
                         </script>
             
                         <table border="0" cellspacing="0" cellpadding="3">
+                            <?php if (!empty($tab['introtext'])): ?>
+                                <tr>
+                                    <td class="warning" nowrap="" colspan="2">
+                                        <?= $tab['introtext'] ?>
+                                        <div class="split" style="margin-bottom: 20px; margin-top: 10px;"></div>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+
                             <?php foreach ($tab['settings'] as $field => $options): ?>
                                 <tr>
                                     <td class="warning" nowrap="">
