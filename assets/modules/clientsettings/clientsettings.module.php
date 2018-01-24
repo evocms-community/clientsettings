@@ -31,10 +31,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($tabs as $tab) {
         foreach (array_keys($tab['settings']) as $field) {
             $postfield = 'tv' . $field;
-
-            if (isset($_POST[$postfield])) {
-                $fields[] = [$params['prefix'] . $field, $_POST[$postfield]];
+            if (!isset($_POST[$postfield])) continue;
+            $type = $tab['settings'][$field]['type'];
+            switch ($type) {
+                case 'url':
+                    if ($_POST[$postfield . '_prefix'] != '--') {
+                        $value = $_POST[$postfield];
+                        $value = str_replace(array (
+                            "feed://",
+                            "ftp://",
+                            "http://",
+                            "https://",
+                            "mailto:"
+                        ), "", $value);
+                        $value = $_POST[$postfield . '_prefix'] . $value;
+                    }
+                    break;
+                default:
+                    $value = $_POST[$postfield];
+                    if (is_array($value)) {
+                        $value = implode("||", $value);
+                    }
+                    break;
             }
+            $fields[] = [$params['prefix'] . $field, $value];
         }
     }
 
