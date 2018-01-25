@@ -31,7 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($tabs as $tab) {
         foreach (array_keys($tab['settings']) as $field) {
             $postfield = 'tv' . $field;
-            if (!isset($_POST[$postfield])) continue;
+
+            if (!isset($_POST[$postfield])) {
+                continue;
+            }
+
             $type = $tab['settings'][$field]['type'];
             switch ($type) {
                 case 'url':
@@ -47,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $value = $_POST[$postfield . '_prefix'] . $value;
                     }
                     break;
+                    
                 default:
                     $value = $_POST[$postfield];
                     if (is_array($value)) {
@@ -54,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                     break;
             }
+
             $fields[] = [$params['prefix'] . $field, $value];
         }
     }
@@ -114,6 +120,11 @@ if (is_array($result)) {
     $richtextinit = implode($richtextinit);
 }
 
+$picker = [
+    'yearOffset' => $modx->getConfig('datepicker_offset'),
+    'format'     => $modx->getConfig('datetime_format') . ' hh:mm:00',
+];
+
 include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
 
 ?>
@@ -145,7 +156,7 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
         <div class="sectionBody" id="settingsPane">
             <div class="dynamic-tab-pane-control tab-pane" id="documentPane">
                 <script type="text/javascript">
-                    var tpSettings = new WebFXTabPane(document.getElementById('documentPane'), <?= ($modx->config['remember_last_tab'] == 1 ? 'true' : 'false') ?> );
+                    var tpSettings = new WebFXTabPane(document.getElementById('documentPane'), <?= ($modx->getConfig('remember_last_tab') == 1 ? 'true' : 'false') ?> );
                 </script> 
 
                 <?php foreach ($tabs as $name => $tab): ?>
@@ -246,4 +257,20 @@ if (is_readable($mmPath)) {
     }
 }
 
-include_once MODX_MANAGER_PATH . 'includes/footer.inc.php';
+?>
+
+<?= $modx->manager->loadDatePicker($modx->getConfig('mgr_date_picker_path')) ?>
+
+<script>
+    jQuery('input.DatePicker').each(function() {
+        new DatePicker(this, {
+            yearOffset: <?= $picker['yearOffset'] ?>,
+            format:     '<?= $picker['format'] ?>',
+            dayNames:   <?= $_lang['dp_dayNames'] ?>,
+            monthNames: <?= $_lang['dp_monthNames'] ?>,
+            startDay:   <?= $_lang['dp_startDay'] ?> 
+        });
+    });
+</script>
+
+<?= include_once MODX_MANAGER_PATH . 'includes/footer.inc.php' ?>
