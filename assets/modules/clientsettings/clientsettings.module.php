@@ -59,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $value = $_POST[$postfield . '_prefix'] . $value;
                     }
                     break;
-
                 default:
                     $value = $_POST[$postfield];
                     if (is_array($value)) {
@@ -129,7 +128,7 @@ foreach ($tabs as $tab) {
     }
 }
 
-if (is_array($result)) {
+if (is_array($richtextinit)) {
     $richtextinit = implode($richtextinit);
 }
 
@@ -300,4 +299,4 @@ if (is_readable($mmPath)) {
     }
 </script>
 
-<?= include_once MODX_MANAGER_PATH . 'includes/footer.inc.php' ?>
+<?php include_once MODX_MANAGER_PATH . 'includes/footer.inc.php'; ?>
