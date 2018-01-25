@@ -19,6 +19,14 @@ if (!function_exists('renderFormElement')) {
     include_once(MODX_MANAGER_PATH . 'includes/tmplvars.inc.php');
 }
 
+if (isset($_REQUEST['stay'])) {
+    $_SESSION['stay'] = $_REQUEST['stay'];
+} else if (isset($_SESSION['stay'])) {
+    $_REQUEST['stay'] = $_SESSION['stay'];
+}
+
+$stay = isset($_REQUEST['stay']) ? $_REQUEST['stay'] : '';
+
 $tabs = [];
 
 foreach (glob(__DIR__ . '/config/*.php') as $file) {
@@ -51,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $value = $_POST[$postfield . '_prefix'] . $value;
                     }
                     break;
-                    
+
                 default:
                     $value = $_POST[$postfield];
                     if (is_array($value)) {
@@ -75,7 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
 
         $modx->clearCache('full');
-        $modx->sendRedirect('index.php?a=7&r=10');
+
+        if ($stay == 2) {
+            $modx->sendRedirect('index.php?a=112&id=' . $_GET['id']);
+        } else {
+            $modx->sendRedirect('index.php?a=7&r=10');
+        }
     }
 }
 
@@ -143,9 +156,18 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
     <form name="settings" method="post" id="mutate">
         <div id="actions">
             <div class="btn-group">
-                <button id="Button1" class="btn btn-success" type="submit" onclick="documentDirty = false;">
-                    <i class="fa fa-floppy-o"></i><span><?= $_lang['save'] ?></span>
-                </button>
+                <div class="btn-group dropdown">
+                    <a id="Button1" class="btn btn-success" href="javascript:;" onclick="save_settings();">
+                        <i class="fa fa-floppy-o"></i><span><?= $_lang['save'] ?></span>
+                    </a>
+
+                    <span class="btn btn-success plus dropdown-toggle"></span>
+
+                    <select id="stay" name="stay">
+                        <option id="stay2" value="2" <?= $stay == '2' ? ' selected="selected"' : '' ?>><?= $_lang['stay'] ?></option>
+                        <option id="stay3" value="" <?= $stay == '' ? ' selected="selected"' : '' ?>><?= $_lang['close'] ?></option>
+                    </select>
+                </div>
 
                 <a id="Button5" class="btn btn-secondary" href="<?= $managerPath ?>index.php?a=2">
                     <i class="fa fa-times-circle"></i><span><?= $_lang['cancel'] ?></span>
@@ -271,6 +293,11 @@ if (is_readable($mmPath)) {
             startDay:   <?= $_lang['dp_startDay'] ?> 
         });
     });
+
+    function save_settings() {
+        documentDirty = false;
+        document.settings.submit();
+    }
 </script>
 
 <?= include_once MODX_MANAGER_PATH . 'includes/footer.inc.php' ?>
