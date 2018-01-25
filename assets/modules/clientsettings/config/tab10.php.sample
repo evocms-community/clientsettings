@@ -1,32 +1,78 @@
 <?php
 
 return [
-    'caption' => 'Company',
+    'caption' => 'All fields',
+    'introtext' => 'All fields on this tab',
     'settings' => [
-        'company_logo' => [
-            'caption' => 'Logotype',
-            'type' => 'image',
-            'note' => 'If empty, will be default',
-        ],
-        'company_address' => [
-            'caption' => 'Address',
+        'field_text' => [
+            'caption' => 'Text field',
             'type'  => 'text',
+            'note'  => 'This is just text field',
+            'default_text' => 'This is default value for this field',
         ],
-        'company_phone' => [
-            'caption' => 'Phone',
-            'type'  => 'text',
-        ],
-        'company_email' => [
-            'caption' => 'Email',
-            'type'  => 'text',
-        ],
-        'head_text' => [
-            'caption' => 'Header text',
+        'field_textarea' => [
+            'caption' => 'Textarea field',
             'type'  => 'textarea',
         ],
-        'test' => [
-            'caption' => 'test',
-            'type' => 'custom_tv:multitv',
+        'field_textareamini' => [
+            'caption' => 'Mini textarea field',
+            'type'  => 'textareamini',
+        ],
+        'field_richtext' => [
+            'caption' => 'Richtext field',
+            'type'  => 'richtext',
+            'elements' => '{"theme": "mini"}',
+        ],
+        'field_dropdown' => [
+            'caption' => 'Dropdown field',
+            'type'  => 'dropdown',
+            'elements' => 'Element 1==1||Element 2==2',
+        ],
+        'field_listbox' => [
+            'caption' => 'Listbox field',
+            'type'  => 'listbox',
+            'elements' => 'Element 1==1||Element 2==2',
+        ],
+        'field_listbox_multiple' => [
+            'caption' => 'Multiple listbox field',
+            'type'  => 'listbox-multiple',
+            'elements' => 'Element 1==1||Element 2==2||Element 3==3||Element 4==4||Element 5==5',
+        ],
+        'field_option' => [
+            'caption' => 'Option field',
+            'type'  => 'option',
+            'elements' => 'Element 1==1||Element 2==2||Element 3==3||Element 4==4||Element 5==5',
+            'default_text' => '3',
+        ],
+        'field_checkbox' => [
+            'caption' => 'Checkbox field',
+            'type'  => 'checkbox',
+            'elements' => 'Element 1==1||Element 2==2||Element 3==3||Element 4==4||Element 5==5',
+            'default_text' => '2||4||5',
+        ],
+        'field_image' => [
+            'caption' => 'Image field',
+            'type'  => 'image',
+        ],
+        'field_file' => [
+            'caption' => 'File field',
+            'type'  => 'file',
+        ],
+        'field_url' => [
+            'caption' => 'Url field',
+            'type'  => 'url',
+        ],
+        'field_email' => [
+            'caption' => 'Email field',
+            'type'  => 'email',
+        ],
+        'field_number' => [
+            'caption' => 'Number field',
+            'type'  => 'number',
+        ],
+        'field_date' => [
+            'caption' => 'Date field',
+            'type'  => 'date',
         ],
     ],
 ];
