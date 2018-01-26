@@ -207,13 +207,15 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
 
                                     <td data-type="<?= $options['type'] ?>">
                                         <?php
+                                            $value = $modx->getConfig($params['prefix'] . $field);
+
                                             $row = [
                                                 'type'         => $options['type'],
                                                 'name'         => $field,
                                                 'caption'      => $options['caption'],
                                                 'id'           => $field,
-                                                'default_text' => isset($options['default_text']) ? $options['default_text'] : '',
-                                                'value'        => $modx->getConfig($params['prefix'] . $field),
+                                                'default_text' => isset($options['default_text']) && $value !== false ? $options['default_text'] : '',
+                                                'value'        => $value,
                                                 'elements'     => isset($options['elements']) ? $options['elements'] : '',
                                             ];
                                         ?>
