@@ -4,7 +4,7 @@
  * Customizable set of fields for user settings
  *
  * @category    module
- * @version     1.1.2
+ * @version     1.1.3
  * @author      mnoskov
  * @internal    @properties &prefix=Prefix for settings;text;client_
  * @internal    @modx_category Manager and Admin

@@ -199,44 +199,52 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
                             <?php endif; ?>
 
                             <?php foreach ($tab['settings'] as $field => $options): ?>
-                                <tr>
-                                    <td class="warning" nowrap="">
-                                        <?= $options['caption'] ?><br>
-                                        <small>[(<?= $params['prefix'] . $field ?>)]</small>
-                                    </td>
+                                <?php if ($options['type'] == 'divider'): ?>
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4 style="margin-top: 20px;"><?= $options['caption'] ?></h4>
+                                        </td>
+                                    </tr>
+                                <?php else: ?>
+                                    <tr>
+                                        <td class="warning" nowrap="">
+                                            <?= $options['caption'] ?><br>
+                                            <small>[(<?= $params['prefix'] . $field ?>)]</small>
+                                        </td>
 
-                                    <td data-type="<?= $options['type'] ?>">
-                                        <?php
-                                            $value = $modx->getConfig($params['prefix'] . $field);
+                                        <td data-type="<?= $options['type'] ?>">
+                                            <?php
+                                                $value = $modx->getConfig($params['prefix'] . $field);
 
-                                            $row = [
-                                                'type'         => $options['type'],
-                                                'name'         => $field,
-                                                'caption'      => $options['caption'],
-                                                'id'           => $field,
-                                                'default_text' => isset($options['default_text']) && $value !== false ? $options['default_text'] : '',
-                                                'value'        => $value,
-                                                'elements'     => isset($options['elements']) ? $options['elements'] : '',
-                                            ];
-                                        ?>
+                                                $row = [
+                                                    'type'         => $options['type'],
+                                                    'name'         => $field,
+                                                    'caption'      => $options['caption'],
+                                                    'id'           => $field,
+                                                    'default_text' => isset($options['default_text']) && $value !== false ? $options['default_text'] : '',
+                                                    'value'        => $value,
+                                                    'elements'     => isset($options['elements']) ? $options['elements'] : '',
+                                                ];
+                                            ?>
 
-                                        <?= renderFormElement(
-                                            $row['type'],
-                                            $row['name'],
-                                            '',
-                                            $row['elements'],
-                                            $row['value'] !== false ? $row['value'] : $row['default_text'],
-                                            isset($options['style']) ? 'style="' . $options['style'] . '"' : '',
-                                            $row
-                                        ); ?>
+                                            <?= renderFormElement(
+                                                $row['type'],
+                                                $row['name'],
+                                                '',
+                                                $row['elements'],
+                                                $row['value'] !== false ? $row['value'] : $row['default_text'],
+                                                isset($options['style']) ? 'style="' . $options['style'] . '"' : '',
+                                                $row
+                                            ); ?>
 
-                                        <?php if (isset($options['note'])): ?>
-                                            <div class="comment">
-                                                <?= $options['note'] ?>
-                                            </div>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
+                                            <?php if (isset($options['note'])): ?>
+                                                <div class="comment">
+                                                    <?= $options['note'] ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
 
                                 <tr>
                                     <td colspan="2"><div class="split"></div></td>
