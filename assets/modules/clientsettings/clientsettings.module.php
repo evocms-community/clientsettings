@@ -59,6 +59,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $value = $_POST[$postfield . '_prefix'] . $value;
                     }
                     break;
+
+                case 'custom_tv:multitv': {
+                    $value = $_POST[$postfield];
+                    $json  = @json_decode($value);
+
+                    if (isset($json->fieldValue)) {
+                        $value = json_encode($json->fieldValue);
+                    }
+                    break;
+                }
+
                 default:
                     $value = $_POST[$postfield];
                     if (is_array($value)) {
