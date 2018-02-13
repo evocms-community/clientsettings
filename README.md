@@ -4,6 +4,6 @@
 
 Модуль для создания формы пользовательских настроек.
 
-Для начала работы нужно переименовать файлы конфигурации `assets/modules/config/*.php.sample` в `*.php`.
+Для начала работы нужно переименовать файлы конфигурации `assets/modules/clientsettings/config/*.php.sample` в `*.php`.
 
 <img src="https://monosnap.com/file/yCajIZTcbBAawiI582hhO4TkYjMqWC.png">
