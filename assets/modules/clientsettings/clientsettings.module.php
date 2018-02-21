@@ -82,6 +82,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+    $modx->invokeEvent('OnBeforeClientSettingsSave', [
+        'fields' => &$fields,
+    ]);
+
     if (!empty($fields)) {
         $modx->db->query("REPLACE INTO " . $modx->getFullTableName('system_settings') . " (setting_name, setting_value) VALUES " . implode(', ', array_map(function($row) use ($modx) {
             return "('" . $modx->db->escape($row[0]) . "', '" . $modx->db->escape($row[1]) . "')";
@@ -89,7 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $modx->invokeEvent('OnDocFormSave', [
             'mode' => 'upd',
-            'id'   => 0
+            'id'   => 0,
+        ]);
+
+        $modx->invokeEvent('OnClientSettingsSave', [
+            'fields' => $fields,
         ]);
 
         $modx->clearCache('full');
