@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     break;
             }
 
-            $fields[] = [$params['prefix'] . $field, $value];
+            $fields[$field] = [$params['prefix'] . $field, $value];
         }
     }
 
