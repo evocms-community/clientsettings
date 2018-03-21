@@ -21,7 +21,6 @@ return [
         'field_richtext' => [
             'caption' => 'Richtext field',
             'type'  => 'richtext',
-            'elements' => '{"theme": "mini"}',
         ],
         'field_dropdown' => [
             'caption' => 'Dropdown field',
