@@ -4,7 +4,7 @@
  * Events install, creates menu item for user module ClientSettings
  *
  * @category    plugin
- * @version     1.2.3
+ * @version     1.2.4
  * @author      mnoskov
  * @internal    @events OnWebPageInit,OnManagerPageInit,OnManagerMenuPrerender
  * @internal    @modx_category Manager and Admin

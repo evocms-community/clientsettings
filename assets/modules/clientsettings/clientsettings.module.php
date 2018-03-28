@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $json  = @json_decode($value);
 
                     if (isset($json->fieldValue)) {
-                        $value = json_encode($json->fieldValue);
+                        $value = json_encode($json->fieldValue, JSON_UNESCAPED_UNICODE);
                     }
                     break;
                 }
