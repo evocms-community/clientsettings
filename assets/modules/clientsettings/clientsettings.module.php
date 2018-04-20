@@ -324,7 +324,7 @@ if (is_readable($mmPath)) {
 
     function save_settings() {
         documentDirty = false;
-        document.settings.submit();
+        jQuery(document.settings).submit();
     }
 </script>
 
