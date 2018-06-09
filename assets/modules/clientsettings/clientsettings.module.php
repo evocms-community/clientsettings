@@ -240,7 +240,7 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
                                                     'name'         => $field,
                                                     'caption'      => $options['caption'],
                                                     'id'           => $field,
-                                                    'default_text' => isset($options['default_text']) && $value !== false ? $options['default_text'] : '',
+                                                    'default_text' => isset($options['default_text']) && $value === false ? $options['default_text'] : '',
                                                     'value'        => $value,
                                                     'elements'     => isset($options['elements']) ? $options['elements'] : '',
                                                 ];
