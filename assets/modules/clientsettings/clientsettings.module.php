@@ -207,7 +207,7 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
                             tpSettings.addTabPage(document.getElementById('tab_<?= $name ?>'));
                         </script>
             
-                        <table border="0" cellspacing="0" cellpadding="3">
+                        <table border="0" cellspacing="0" cellpadding="3" style="font-size: inherit; line-height: inherit;">
                             <?php if (!empty($tab['introtext'])): ?>
                                 <tr>
                                     <td class="warning" nowrap="" colspan="2">
