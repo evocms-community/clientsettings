@@ -90,23 +90,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $modx->db->query("REPLACE INTO " . $modx->getFullTableName('system_settings') . " (setting_name, setting_value) VALUES " . implode(', ', array_map(function($row) use ($modx) {
             return "('" . $modx->db->escape($row[0]) . "', '" . $modx->db->escape($row[1]) . "')";
         }, $fields)));
+    }
 
-        $modx->invokeEvent('OnDocFormSave', [
-            'mode' => 'upd',
-            'id'   => 0,
-        ]);
+    $modx->invokeEvent('OnDocFormSave', [
+        'mode' => 'upd',
+        'id'   => 0,
+    ]);
 
-        $modx->invokeEvent('OnClientSettingsSave', [
-            'fields' => $fields,
-        ]);
+    $modx->invokeEvent('OnClientSettingsSave', [
+        'fields' => $fields,
+    ]);
 
-        $modx->clearCache('full');
+    $modx->clearCache('full');
 
-        if ($stay == 2) {
-            $modx->sendRedirect('index.php?a=112&id=' . $_GET['id']);
-        } else {
-            $modx->sendRedirect('index.php?a=7&r=10');
-        }
+    if ($stay == 2) {
+        $modx->sendRedirect('index.php?a=112&id=' . $_GET['id']);
+    } else {
+        $modx->sendRedirect('index.php?a=7&r=10');
     }
 }
 
@@ -324,7 +324,7 @@ if (is_readable($mmPath)) {
 
     function save_settings() {
         documentDirty = false;
-        document.settings.submit();
+        jQuery(document.settings).submit();
     }
 </script>
 
