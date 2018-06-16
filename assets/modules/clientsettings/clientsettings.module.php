@@ -40,15 +40,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         foreach (array_keys($tab['settings']) as $field) {
             $postfield = 'tv' . $field;
 
-            if (!isset($_POST[$postfield])) {
-                continue;
+            $type = $tab['settings'][$field]['type'];
+
+            if (isset($_POST[$postfield])) {
+                $value = $_POST[$postfield];
+            } else if (isset($tab['settings'][$field]['default_value'])) {
+                $value = $tab['settings'][$field]['default_value'];
+            } else {
+                $value = '';
             }
 
-            $type = $tab['settings'][$field]['type'];
             switch ($type) {
                 case 'url':
                     if ($_POST[$postfield . '_prefix'] != '--') {
-                        $value = $_POST[$postfield];
                         $value = str_replace(array (
                             "feed://",
                             "ftp://",
@@ -61,8 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     break;
 
                 case 'custom_tv:multitv': {
-                    $value = $_POST[$postfield];
-                    $json  = @json_decode($value);
+                    $json = @json_decode($value);
 
                     if (isset($json->fieldValue)) {
                         $value = json_encode($json->fieldValue, JSON_UNESCAPED_UNICODE);
@@ -71,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
 
                 default:
-                    $value = $_POST[$postfield];
                     if (is_array($value)) {
                         $value = implode("||", $value);
                     }
@@ -194,7 +196,7 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
         </div>
 
         <div class="sectionBody" id="settingsPane">
-            <div class="dynamic-tab-pane-control tab-pane" id="documentPane">
+            <div class="tab-pane" id="documentPane">
                 <script type="text/javascript">
                     var tpSettings = new WebFXTabPane(document.getElementById('documentPane'), <?= ($modx->getConfig('remember_last_tab') == 1 ? 'true' : 'false') ?> );
                 </script> 
