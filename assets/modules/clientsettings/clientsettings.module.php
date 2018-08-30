@@ -122,6 +122,12 @@ include MODX_MANAGER_PATH . 'includes/lang/' . $userlang . '.inc.php';
 $richtextinit  = [];
 $defaulteditor = $modx->getconfig('which_editor');
 
+$richtextparams = [
+    'editor'   => $defaulteditor,
+    'elements' => [],
+    'options'  => [],
+];
+    
 foreach ($tabs as $tab) {
     foreach ($tab['settings'] as $field => $options) {
         if ($options['type'] != 'richtext') {
@@ -129,28 +135,31 @@ foreach ($tabs as $tab) {
         }
 
         $editor    = $defaulteditor;
-        $tvoptions = $modx->parseProperties($options['elements']);
+        $tvoptions = [];
+
+        if (!empty($options['options'])) {
+            $tvoptions = array_merge($tvoptions, $options['options']);
+        }
+
+        if (!empty($options['elements'])) {
+            $tvoptions = array_merge($tvoptions, $modx->parseProperties($options['elements']));
+        }
 
         if (!empty($tvoptions) && isset($tvoptions['editor'])) {
             $editor = $tvoptions['editor'];
         };
 
-        $result = $modx->invokeEvent('OnRichTextEditorInit', [
-            'editor'   => $modx->config['which_editor'],
-            'elements' => 'tv' . $field,
-            'options'  => [
-                'tv' . $field => $tvoptions,
-            ],
-        ]);
-
-        if (is_array($result)) {
-            $richtextinit[] = implode($result);
-        }
+        $richtextparams['elements'][] = 'tv' . $field;
+        $richtextparams['options']['tv' . $field] = $tvoptions;
     }
 }
 
-if (is_array($richtextinit)) {
-    $richtextinit = implode($richtextinit);
+if (!empty($richtextparams)) {
+    $richtextinit = $modx->invokeEvent('OnRichTextEditorInit', $richtextparams);
+
+    if (is_array($richtextinit)) {
+        $richtextinit = implode($richtextinit);
+    }
 }
 
 $picker = [
