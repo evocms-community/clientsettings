@@ -112,6 +112,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+global $content, $_style, $lastInstallTime;
+$content['richtext'] = 1;
+
+if (!isset($_COOKIE['MODX_themeMode'])) {
+    $_COOKIE['MODX_themeMode'] = '';
+}
+
 $userlang    = $modx->getConfig('manager_language');
 $_customlang = include MODX_BASE_PATH . 'assets/modules/clientsettings/lang.php';
 $title       = isset($_customlang[$userlang]) ? $_customlang[$userlang] : reset($_customlang);
