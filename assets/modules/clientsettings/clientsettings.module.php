@@ -245,34 +245,44 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
                                 <?php else: ?>
                                     <tr>
                                         <td class="warning" nowrap="">
-                                            <?= $options['caption'] ?><br>
-                                            <small>[(<?= $params['prefix'] . $field ?>)]</small>
+                                            <?php if ($options['type'] === 'title'): ?>
+                                                <div style="font-size:120%;padding:20px 0 10px;font-weight:bold;">
+                                                    <?= $options['caption'] ?>
+                                                </div>
+                                            <?php else: ?>
+                                                <?= $options['caption'] ?> <br>
+                                                <small>[(<?= $params['prefix'] . $field ?>)]</small>
+                                            <?php endif; ?>
                                         </td>
 
                                         <td data-type="<?= $options['type'] ?>">
-                                            <?php
-                                                $value = isset($modx->config[$params['prefix'] . $field]) ? $modx->config[$params['prefix'] . $field] : false;
 
-                                                $row = [
-                                                    'type'         => $options['type'],
-                                                    'name'         => $field,
-                                                    'caption'      => $options['caption'],
-                                                    'id'           => $field,
-                                                    'default_text' => isset($options['default_text']) && $value === false ? $options['default_text'] : '',
-                                                    'value'        => $value,
-                                                    'elements'     => isset($options['elements']) ? $options['elements'] : '',
-                                                ];
-                                            ?>
+                                            <?php if ($options['type'] !== 'title'): ?>
 
-                                            <?= renderFormElement(
-                                                $row['type'],
-                                                $row['name'],
-                                                '',
-                                                $row['elements'],
-                                                $row['value'] !== false ? $row['value'] : $row['default_text'],
-                                                isset($options['style']) ? 'style="' . $options['style'] . '"' : '',
-                                                $row
-                                            ); ?>
+                                                <?php
+                                                    $value = isset($modx->config[$params['prefix'] . $field]) ? $modx->config[$params['prefix'] . $field] : false;
+
+                                                    $row = [
+                                                        'type'         => $options['type'],
+                                                        'name'         => $field,
+                                                        'caption'      => $options['caption'],
+                                                        'id'           => $field,
+                                                        'default_text' => isset($options['default_text']) && $value === false ? $options['default_text'] : '',
+                                                        'value'        => $value,
+                                                        'elements'     => isset($options['elements']) ? $options['elements'] : '',
+                                                    ];
+                                                ?>
+
+                                                <?= renderFormElement(
+                                                    $row['type'],
+                                                    $row['name'],
+                                                    '',
+                                                    $row['elements'],
+                                                    $row['value'] !== false ? $row['value'] : $row['default_text'],
+                                                    isset($options['style']) ? 'style="' . $options['style'] . '"' : '',
+                                                    $row
+                                                ); ?>
+                                            <?php endif; ?>
 
                                             <?php if (isset($options['note'])): ?>
                                                 <div class="comment">
@@ -283,9 +293,11 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
                                     </tr>
                                 <?php endif; ?>
 
-                                <tr>
-                                    <td colspan="2"><div class="split"></div></td>
-                                </tr>
+                                <?php if ($options['type'] !== 'title'): ?>
+                                    <tr>
+                                        <td colspan="2"><div class="split"></div></td>
+                                    </tr>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </table>
                     </div>
