@@ -27,10 +27,17 @@ if (isset($_REQUEST['stay'])) {
 
 $stay = isset($_REQUEST['stay']) ? $_REQUEST['stay'] : '';
 
+$menu = isset($_GET['menu']) && is_string($_GET['menu']) ? $_GET['menu'] : 'default';
+
 $tabs = [];
 
 foreach (glob(__DIR__ . '/config/*.php') as $file) {
-    $tabs[pathinfo($file, PATHINFO_FILENAME)] = include $file;
+    $tab = include $file;
+    $tabMenu = isset($tab['menu']['alias']) ? $tab['menu']['alias'] : 'default';
+
+    if ($tabMenu == $menu) {
+        $tabs[pathinfo($file, PATHINFO_FILENAME)] = $tab;
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -134,7 +141,7 @@ $richtextparams = [
     'elements' => [],
     'options'  => [],
 ];
-    
+
 foreach ($tabs as $tab) {
     foreach ($tab['settings'] as $field => $options) {
         if ($options['type'] != 'richtext') {
@@ -179,9 +186,9 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
 ?>
 
 <h1>
-    <i class="fa fa-cog"></i><?= $title ?> 
+    <i class="fa fa-cog"></i><?= $title ?>
 </h1>
-    
+
 <?php if (empty($tabs)): ?>
     <div class="tab-page">
         <div class="container-body">
@@ -215,16 +222,16 @@ include_once MODX_MANAGER_PATH . 'includes/header.inc.php';
             <div class="tab-pane" id="documentPane">
                 <script type="text/javascript">
                     var tpSettings = new WebFXTabPane(document.getElementById('documentPane'), <?= ($modx->getConfig('remember_last_tab') == 1 ? 'true' : 'false') ?> );
-                </script> 
+                </script>
 
                 <?php foreach ($tabs as $name => $tab): ?>
                     <div class="tab-page" id="tab_<?= $name ?>">
                         <h2 class="tab"><?= $tab['caption'] ?></h2>
-            
+
                         <script type="text/javascript">
                             tpSettings.addTabPage(document.getElementById('tab_<?= $name ?>'));
                         </script>
-            
+
                         <table border="0" cellspacing="0" cellpadding="3" style="font-size: inherit; line-height: inherit;">
                             <?php if (!empty($tab['introtext'])): ?>
                                 <tr>
@@ -348,7 +355,7 @@ if (is_readable($mmPath)) {
             format:     '<?= $picker['format'] ?>',
             dayNames:   <?= $_lang['dp_dayNames'] ?>,
             monthNames: <?= $_lang['dp_monthNames'] ?>,
-            startDay:   <?= $_lang['dp_startDay'] ?> 
+            startDay:   <?= $_lang['dp_startDay'] ?>
         });
     });
 
