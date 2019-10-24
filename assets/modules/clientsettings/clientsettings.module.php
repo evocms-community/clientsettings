@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $modx->clearCache('full');
 
     if ($stay == 2) {
-        $modx->sendRedirect('index.php?a=112&id=' . $_GET['id']);
+        $modx->sendRedirect('index.php?a=112&id=' . $_GET['id'] . '&menu=' . $menu);
     } else {
         $modx->sendRedirect('index.php?a=7&r=10');
     }
