@@ -4,7 +4,6 @@
  * Events install
  *
  * @category    plugin
- * @version     1.2.7
  * @author      mnoskov
  * @internal    @events OnWebPageInit,OnManagerPageInit
  * @internal    @modx_category Manager and Admin
