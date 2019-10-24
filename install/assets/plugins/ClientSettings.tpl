@@ -1,12 +1,12 @@
 /**
  * ClientSettings
  *
- * Events install, creates menu item for user module ClientSettings
+ * Creates menu item for user module ClientSettings
  *
  * @category    plugin
  * @version     1.2.7
  * @author      mnoskov
- * @internal    @events OnWebPageInit,OnManagerPageInit,OnManagerMenuPrerender
+ * @internal    @events OnManagerMenuPrerender
  * @internal    @modx_category Manager and Admin
  */
 //<?php
@@ -48,45 +48,6 @@ switch ($modx->event->name) {
         $params['menu']['client_settings'] = $menuparams;
 
         $modx->event->output(serialize($params['menu']));
-        return;
-    }
-
-    case 'OnWebPageInit':
-    case 'OnManagerPageInit': {
-        $modx->db->query("DELETE FROM " . $modx->getFullTableName('site_plugin_events') . "
-            WHERE pluginid IN (
-               SELECT id
-               FROM " . $modx->getFullTableName('site_plugins') . "
-               WHERE name = '" . $modx->event->activePlugin . "'
-               AND disabled = 0
-            )
-            AND evtid IN (
-               SELECT id
-               FROM " . $modx->getFullTableName('system_eventnames') . "
-               WHERE name IN ('OnWebPageInit', 'OnManagerPageInit')
-            )");
-
-        $modx->clearCache('full');
-
-        $table  = $modx->getFullTableName('system_eventnames');
-        $events = ['OnBeforeClientSettingsSave', 'OnClientSettingsSave'];
-        $query  = $modx->db->select('*', $table, "`name` IN ('" . implode("', '", $events) . "')");
-
-        $events = array_flip($events);
-        while ($row = $modx->db->getRow($query)) {
-            if (isset($events[$row['name']])) {
-                unset($events[$row['name']]);
-            }
-        }
-
-        foreach (array_flip($events) as $event) {
-            $modx->db->insert([
-                'name'      => $event,
-                'service'   => 6,
-                'groupname' => 'ClientSettings',
-            ], $table);
-        }
-
         return;
     }
 }
