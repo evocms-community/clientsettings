@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'caption'  => 'Separated Menu Tab',
+
+    'menu' => [
+        'alias' => 'custommenu',
+        'caption' => 'Separated Menu Item',
+        'icon' => 'fa-sliders',
+    ],
+    
+    'introtext' => 'Tabs can be detached to a separated menu item by specifying key <code>menu</code>.',
+    
+    'settings' => [
+        'field_text' => [
+            'caption' => 'Text field',
+            'type'  => 'text',
+            'note'  => 'This is just text field',
+            'default_text' => 'This is default value for this field',
+        ],
+        'field_richtext' => [
+            'caption' => 'Richtext field',
+            'type'  => 'richtext',
+        ],
+    ],
+];
