@@ -33,10 +33,13 @@ $tabs = [];
 
 foreach (glob(__DIR__ . '/config/*.php') as $file) {
     $tab = include $file;
-    $tabMenu = isset($tab['menu']['alias']) ? $tab['menu']['alias'] : 'default';
 
-    if ($tabMenu == $menu) {
-        $tabs[pathinfo($file, PATHINFO_FILENAME)] = $tab;
+    if (!empty($tab) && is_array($tab)) {
+        $tabMenu = isset($tab['menu']['alias']) ? $tab['menu']['alias'] : 'default';
+
+        if ($tabMenu == $menu) {
+            $tabs[pathinfo($file, PATHINFO_FILENAME)] = $tab;
+        }
     }
 }
 
