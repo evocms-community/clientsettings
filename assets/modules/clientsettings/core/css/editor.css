@@ -1,0 +1,9 @@
+.tab-setting { border-radius: 0.25rem; border: 1px solid #e3e3e3; padding: 14px 20px 4px 20px; margin-bottom: 20px; position: relative; }
+a.add_tab { position: absolute; right: 25px; top: -12px !important; font-size: 1rem; color: #449d44; display: block; width: 16px; height: 16px; padding: 0; width: 25px !important; 
+text-align: center; background: transparent !important; }
+a.remove_tab { position: absolute; top: -12px !important; font-size: 1rem; display: block; height: 16px; padding: 0; right: 10px; color: #c9302c; }
+.hidden { display: none; }
+.showall { cursor: pointer; color: #3481bc; text-decoration: underline; }
+label { margin-bottom: 0; margin-top: 0.5em; }
+.table.data > tbody > tr { border-left: 10px solid lightgrey; }
+.table.data > tbody > tr td { cursor: move; }
