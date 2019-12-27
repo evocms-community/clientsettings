@@ -120,7 +120,7 @@
 
     function save_settings() {
         documentDirty = false;
-        jQuery(document.settings).submit();
+        document.settings.save.click();
     }
 </script>
 
