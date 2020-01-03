@@ -4,7 +4,7 @@
  * Creates menu item for user module ClientSettings
  *
  * @category    plugin
- * @version     2.0.0
+ * @version     2.0.1
  * @author      mnoskov
  * @internal    @events OnManagerMenuPrerender
  * @internal    @modx_category Manager and Admin
@@ -19,14 +19,14 @@ if ($modx->event->name == 'OnManagerMenuPrerender') {
     $lang = $cs->loadLang();
     $tabs = $cs->loadStructure();
 
-    $menuparams = ['client_settings', 'main', '<i class="fa fa-cog"></i>' . $lang['cs.module_title'], 'index.php?a=112&id=' . $mid, $lang['cs.module_title'], '', '', 'main', 0, 100, ''];
+    $menuparams = ['client_settings', 'main', '<i class="fa fa-cog"></i>' . $lang['cs.module_title'], 'index.php?a=112&id=' . $mid . '&type=default', $lang['cs.module_title'], '', '', 'main', 0, 100, ''];
 
     if (count($tabs) > 1) {
         $menuparams[3] = 'javscript:;';
         $menuparams[5] = 'return false;';
         $sort = 0;
 
-        $params['menu']['client_settings_main'] = ['client_settings_main', 'client_settings', '<i class="fa fa-cog"></i>' . $lang['cs.module_title'], 'index.php?a=112&id=' . $mid, $lang['cs.module_title'], '', '', 'main', 0, $sort, ''];
+        $params['menu']['client_settings_main'] = ['client_settings_main', 'client_settings', '<i class="fa fa-cog"></i>' . $lang['cs.module_title'], 'index.php?a=112&id=' . $mid . '&type=default', $lang['cs.module_title'], '', '', 'main', 0, $sort, ''];
 
         foreach ($tabs as $alias => $item) {
             if ($alias != 'default') {
