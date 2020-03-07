@@ -19,7 +19,7 @@
         $('.news_str').children('td').each(function() {
             $(this).children('input, select').val('');
         });
-        $('.news_str').removeClass('.news_str');
+        $('.news_str').removeClass('news_str');
         reset_index();
     });
 

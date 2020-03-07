@@ -2,6 +2,8 @@
 
 class ClientSettings
 {
+    const VERSION = '2.0.2';
+
     private $corePath;
     private $params = [];
     private $lang = null;
@@ -362,6 +364,7 @@ class ClientSettings
 
         $modx   = EvolutionCMS();
         $managerPath = $modx->getManagerPath();
+        $version = self::VERSION;
         $stay   = $_REQUEST['stay'];
         $_lang  = $this->loadLang();
         $params = $this->params;
