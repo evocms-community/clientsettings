@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'cs.module_title' => 'Site-instellingen',
+    'cs.module_title' => 'Instellingen',
 ];
