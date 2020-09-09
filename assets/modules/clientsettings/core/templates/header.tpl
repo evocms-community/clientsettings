@@ -18,7 +18,7 @@
                 </select>
             </div>
 
-            <?php if (empty($_GET['editor'])): ?>
+            <?php if ($this->manager['role'] == 1 && empty($_GET['editor'])): ?>
                 <a id="Button5" class="btn btn-secondary" href="<?= $managerPath ?>index.php?a=112&id=<?= $mid ?>&type=<?= $params['menu'] ?>&editor=1">
                     <i class="fa fa-cog"></i><span><?= $_lang['cs.editor'] ?></span>
                 </a>

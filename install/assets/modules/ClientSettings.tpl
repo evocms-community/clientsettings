@@ -4,7 +4,7 @@
  * Customizable set of fields for user settings
  *
  * @category    module
- * @version     2.0.2
+ * @version     2.1.0
  * @author      mnoskov
  * @internal    @properties &prefix=Prefix for settings;text;client_ &config_path=Path to configuration files;text;
  * @internal    @modx_category Manager and Admin

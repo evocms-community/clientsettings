@@ -2,11 +2,12 @@
 
 class ClientSettings
 {
-    const VERSION = '2.0.2';
+    const VERSION = '2.1.0';
 
     private $corePath;
     private $params = [];
     private $lang = null;
+    private $manager = [];
 
     public function __construct($params = [])
     {
@@ -21,6 +22,10 @@ class ClientSettings
         $this->params['menu'] = isset($_GET['type']) && is_string($_GET['type']) ? $_GET['type'] : 'default';
 
         $this->corePath = rtrim(realpath(__DIR__ . '/../'), '/') . '/';
+
+        $evo = EvolutionCMS();
+        $manager_id = $evo->getLoginUserID('mgr');
+        $this->manager = $evo->getUserInfo($manager_id);
     }
 
     public function processRequest()
@@ -49,7 +54,7 @@ class ClientSettings
         }
     }
 
-    public function loadStructure($menu = false)
+    public function loadStructure($menuitem = false)
     {
         $tabs = [];
 
@@ -57,6 +62,22 @@ class ClientSettings
             $tab = include $file;
 
             if (!empty($tab) && is_array($tab)) {
+                if ($this->manager['role'] != 1) {
+                    if (isset($tab['role']) && $tab['role'] != $this->manager['role']) {
+                        continue;
+                    }
+
+                    if (isset($tab['roles'])) {
+                        if (!is_array($tab['roles'])) {
+                            $tab['roles'] = array_map('trim', explode(',', $tab['roles']));
+                        }
+
+                        if (!in_array($this->manager['role'], $tab['roles'])) {
+                            continue;
+                        }
+                    }
+                }
+
                 $alias = pathinfo($file, PATHINFO_FILENAME);
 
                 if (!isset($tab['menu'])) {
@@ -79,9 +100,9 @@ class ClientSettings
             }
         }
 
-        if ($menu) {
-            if (isset($tabs[$menu])) {
-                return $tabs[$menu];
+        if ($menuitem) {
+            if (isset($tabs[$menuitem])) {
+                return $tabs[$menuitem];
             }
 
             return [];

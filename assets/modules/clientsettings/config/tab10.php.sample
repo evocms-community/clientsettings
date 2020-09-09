@@ -3,6 +3,7 @@
 return [
     'caption' => 'All fields',
     'introtext' => 'All fields on this tab',
+    //'roles' => [1], // admin only
     'settings' => [
         'field_text' => [
             'caption' => 'Text field',
