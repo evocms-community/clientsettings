@@ -6,6 +6,7 @@
  * @category    module
  * @version     2.1.0
  * @author      mnoskov
+ * @internal	@guid clsee234523g354f542t5t
  * @internal    @properties &prefix=Prefix for settings;text;client_ &config_path=Path to configuration files;text;
  * @internal    @modx_category Manager and Admin
  */
