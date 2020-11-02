@@ -2,7 +2,7 @@
 
 class ClientSettings
 {
-    const VERSION = '2.1.0';
+    const VERSION = '2.1.1';
 
     private $corePath;
     private $params = [];
@@ -355,13 +355,42 @@ class ClientSettings
     public function loadLang()
     {
         if ($this->lang === null) {
-            $modx     = EvolutionCMS();
+            $modx  = EvolutionCMS();
+            $_lang = [];
+
+            $aliases = [
+                'bg' => 'bulgarian',
+                'zh' => 'chinese',
+                'cs' => 'czech',
+                'da' => 'danish',
+                'en' => 'english',
+                'fi' => 'finnish',
+                'fr' => 'francais-utf8',
+                'de' => 'german',
+                'he' => 'hebrew',
+                'it' => 'italian',
+                'jp' => 'japanese-utf8',
+                'nl' => 'nederlands-utf8',
+                'no' => 'norsk',
+                'fa' => 'persian',
+                'pl' => 'polish-utf8',
+                'pt' => 'portuguese-br-utf8',
+                'ru' => 'russian-UTF8',
+                'es' => 'spanish-utf8',
+                'sv' => 'svenska-utf8',
+                'uk' => 'ukrainian'
+            ];
+
             $userlang = $modx->getConfig('manager_language');
-            $_lang    = [];
 
-            include MODX_MANAGER_PATH . 'includes/lang/' . $userlang . '.inc.php';
+            if (isset($aliases[$userlang])) {
+                include EVO_CORE_PATH . 'lang/' . $userlang . '/global.php';
+                $userlang = $aliases[$userlang];
+            } else {
+                include MODX_MANAGER_PATH . 'includes/lang/' . $userlang . '.inc.php';
+            }
 
-            foreach ([$modx->getConfig('manager_language'), 'english'] as $l) {
+            foreach ([$userlang, 'english'] as $l) {
                 if (is_readable($this->corePath . 'lang/' . $l . '/cs.inc.php')) {
                     $lang = include $this->corePath . 'lang/' . $l . '/cs.inc.php';
                     break;
