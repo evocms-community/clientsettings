@@ -171,7 +171,6 @@ class ClientSettings
         if (!empty($fields)) {
             if(version_compare($modx->getVersionData()['version'], '2.3.0-rc0', '>=')){
                 foreach($fields as $row) {
-                    bdump($row);
                     \EvolutionCMS\Models\SystemSetting::updateOrCreate(['setting_name'=>$row[0]], ['setting_value'=>$row[1]]);
                 };
             }else {
