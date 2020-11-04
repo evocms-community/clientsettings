@@ -169,9 +169,16 @@ class ClientSettings
         ]);
 
         if (!empty($fields)) {
-            $modx->db->query("REPLACE INTO " . $modx->getFullTableName('system_settings') . " (setting_name, setting_value) VALUES " . implode(', ', array_map(function($row) use ($modx) {
-                return "('" . $modx->db->escape($row[0]) . "', '" . $modx->db->escape($row[1]) . "')";
-            }, $fields)));
+            if(version_compare($modx->getVersionData()['version'], '2.3.0-rc0', '>=')){
+                foreach($fields as $row) {
+                    bdump($row);
+                    \EvolutionCMS\Models\SystemSetting::updateOrCreate(['setting_name'=>$row[0]], ['setting_value'=>$row[1]]);
+                };
+            }else {
+                $modx->db->query("REPLACE INTO " . $modx->getFullTableName('system_settings') . " (setting_name, setting_value) VALUES " . implode(', ', array_map(function ($row) use ($modx) {
+                        return "('" . $modx->db->escape($row[0]) . "', '" . $modx->db->escape($row[1]) . "')";
+                    }, $fields)));
+            }
         }
 
         $modx->invokeEvent('OnDocFormSave', [
