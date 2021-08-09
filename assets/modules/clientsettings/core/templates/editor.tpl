@@ -52,10 +52,10 @@
                         <?php foreach ($tab['settings'] as $field => $value): ?>
                             <tr>
                                 <td class="tableHeader">
-                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][field]" value="<?= $field ?>">
+                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][field]" value="<?= htmlspecialchars($field) ?>">
                                 </td>
                                 <td class="tableHeader">
-                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][caption]" value="<?= $value['caption'] ?>">
+                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][caption]" value="<?= htmlspecialchars($value['caption']) ?>">
                                 </td>
                                 <td class="tableHeader">
                                     <select size="1" class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][type]">
@@ -91,13 +91,13 @@
                                     </select>
                                 </td>
                                 <td class="tableHeader">
-                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][note]" value="<?= $value['note'] ?>">
+                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][note]" value="<?= htmlspecialchars($value['note']) ?>">
                                 </td>
                                 <td class="tableHeader">
-                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][elements]" value="<?= $value['elements'] ?>">
+                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][elements]" value="<?= htmlspecialchars($value['elements']) ?>">
                                 </td>
                                 <td class="tableHeader">
-                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][default_text]" value="<?= $value['default_text'] ?>">
+                                    <input class="form-control" name="struct[tabs][<?= $key ?>][settings][<?= $i ?>][default_text]" value="<?= htmlspecialchars($value['default_text']) ?>">
                                 </td>
                                 <td class="tableHeader" width="1%">
                                     <ul class="elements_buttonbar">
