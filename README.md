@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/PHP-%3E=5.6-green.svg?php=5.6"> <img src="https://img.shields.io/badge/EVO-%3E=1.4.10-blue.svg">
 
-Модуль для создания формы пользовательских настроек. http://docs.evo.im/03_extras/clientsettings.html
+Модуль для создания формы пользовательских настроек. http://docs.evo.im/04_extras/clientsettings.html
 
 Для начала работы нужно переименовать файлы конфигурации `assets/modules/clientsettings/config/*.php.sample` в `*.php`.
 
