@@ -1,84 +1,98 @@
+<style> 
+	.clSettings .hr { display:flex; flex-wrap:nowrap; align-items: center; margin: 0 -0.25rem;}
+	.clSettings .hr:after {content:''; border-bottom: #ddd 1px solid; margin: 1rem 0; width:100%; }
+	.clSettings .col { display:flex; flex-basis: 100%; align-items: flex-start;}
+	.clSettings .col .row{ flex-grow: 1; padding-top: .5rem; transition:background .5s ease;}
+	.clSettings .col .row:hover {background:#e8ebef;}
+	.clSettings .col .warning small {display: flex;}
+	@media (min-width: 576px){
+	.clSettings .col[class*='col-sm-'] >.row > [class*='col-']{ max-width:100%; min-width:100%;}
+	.clSettings .col[class*='col-sm-'] .warning small {display: inline-flex;}}
+	@media (min-width: 768px){
+	.clSettings .col[class*='col-md-'] >.row > [class*='col-']{ max-width:100%; min-width:100%;}
+	.clSettings .col[class*='col-md-'] .warning small {display: inline-flex;}
+	 }
+	@media (min-width: 992px){
+	.clSettings .col[class*='col-lg'] >.row > [class*='col-']{ max-width:100%; min-width:100%;}
+	.clSettings .col[class*='col-lg-'] .warning small {display: inline-flex;}
+	}
+	@media (min-width: 1200px){
+	.clSettings .col[class*='col-xl-'] >.row > [class*='col-']{ max-width:100%; min-width:100%;}
+	.clSettings .col[class*='col-xl-'] .warning small {display: inline-flex;}
+	}
+</style>
 <?php foreach ($tabs as $name => $tab): ?>
-    <div class="tab-page" id="tab_<?= $name ?>">
+    <div class="tab-page clSettings" id="tab_<?= $name ?>">
         <h2 class="tab"><?= $tab['caption'] ?></h2>
 
         <script type="text/javascript">
             tpSettings.addTabPage(document.getElementById('tab_<?= $name ?>'));
         </script>
-
-        <table border="0" cellspacing="0" cellpadding="3" style="font-size: inherit; line-height: inherit;">
+        <div class="row  ml-2 mr-2" style="font-size: inherit; line-height: inherit;">
             <?php if (!empty($tab['introtext'])): ?>
-                <tr>
-                    <td class="warning" nowrap="" colspan="2">
-                        <?= $tab['introtext'] ?>
-                        <div class="split" style="margin-bottom: 20px; margin-top: 10px;"></div>
-                    </td>
-                </tr>
+                    <div class="warning col-12">
+                        <div class="text-nowrap mr-1"><?= $tab['introtext'] ?></div>
+                    </div>
             <?php endif; ?>
 
             <?php foreach ($tab['settings'] as $field => $options): ?>
                 <?php if ($options['type'] == 'divider'): ?>
-                    <tr>
-                        <td colspan="2">
-                            <h4 style="margin-top: 20px;"><?= $options['caption'] ?></h4>
-                        </td>
-                    </tr>
+                        <div class="col-12 mb-2">
+                            <h4 class="hr text-nowrap"><div class="text-nowrap mr-3"><?= $options['caption'] ?></div></h4>
+                        </div>
                 <?php else: ?>
-                    <tr>
-                        <td class="warning" nowrap="">
-                            <?php if ($options['type'] === 'title'): ?>
-                                <div style="font-size:120%;padding:20px 0 10px;font-weight:bold;">
-                                    <?= $options['caption'] ?>
-                                </div>
-                            <?php else: ?>
-                                <?= $options['caption'] ?> <br>
-                                <small>[(<?= $params['prefix'] . $field ?>)]</small>
-                            <?php endif; ?>
-                        </td>
+					<div class="col  <?= $options['class'] ?> ">
+						<div class="row">
+							<div class="warning col-sm-4 h5">
+								<?php if ($options['type'] === 'title'): ?>
+									<div class="text-nowrap mb-1 ">
+										<?= $options['caption'] ?>
+									</div>
+								<?php else: ?>
+									<?= $options['caption'] ?> 
+									<small class="text-nowrap text-black-50 pt-1">[(<?= $params['prefix'] . $field ?>)]</small>
+								<?php endif; ?>
+							</div>
 
-                        <td data-type="<?= $options['type'] ?>">
-                            <?php if ($options['type'] !== 'title'): ?>
-                                <?php
-                                    $value = isset($modx->config[$params['prefix'] . $field]) ? $modx->config[$params['prefix'] . $field] : false;
+							<div class="col-sm-8  mb-2" data-type="<?= $options['type'] ?>">
+								<?php if ($options['type'] !== 'title'): ?>
+									<?php
+										$value = isset($modx->config[$params['prefix'] . $field]) ? $modx->config[$params['prefix'] . $field] : false;
 
-                                    $row = [
-                                        'type'         => $options['type'],
-                                        'name'         => $field,
-                                        'caption'      => $options['caption'],
-                                        'id'           => $field,
-                                        'default_text' => isset($options['default_text']) && $value === false ? $options['default_text'] : '',
-                                        'value'        => $value,
-                                        'elements'     => isset($options['elements']) ? $options['elements'] : '',
-                                    ];
-                                ?>
+										$row = [
+											'type'         => $options['type'],
+											'name'         => $field,
+											'caption'      => $options['caption'],
+											'id'           => $field,
+											'default_text' => isset($options['default_text']) && $value === false ? $options['default_text'] : '',
+											'value'        => $value,
+											'elements'     => isset($options['elements']) ? $options['elements'] : '',
+										];
+									?>
 
-                                <?= renderFormElement(
-                                    $row['type'],
-                                    $row['name'],
-                                    '',
-                                    $row['elements'],
-                                    $row['value'] !== false ? $row['value'] : $row['default_text'],
-                                    isset($options['style']) ? 'style="' . $options['style'] . '"' : '',
-                                    $row
-                                ); ?>
-                            <?php endif; ?>
+									<?= renderFormElement(
+										$row['type'],
+										$row['name'],
+										'',
+										$row['elements'],
+										$row['value'] !== false ? $row['value'] : $row['default_text'],
+										isset($options['style']) ? 'style="' . $options['style'] . '"' : '',
+										$row
+									); ?>
+								<?php endif; ?>
 
-                            <?php if (isset($options['note'])): ?>
-                                <div class="comment">
-                                    <?= $options['note'] ?>
-                                </div>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
+								<?php if (isset($options['note'])): ?>
+									<div class="comment">
+										<?= $options['note'] ?>
+									</div>
+								<?php endif; ?>
+							</div>
+						</div>
+					</div>
                 <?php endif; ?>
 
-                <?php if ($options['type'] !== 'title'): ?>
-                    <tr>
-                        <td colspan="2"><div class="split"></div></td>
-                    </tr>
-                <?php endif; ?>
             <?php endforeach; ?>
-        </table>
+        </div>
     </div>
 <?php endforeach; ?>
 
@@ -98,7 +112,7 @@ if (is_readable($mmPath)) {
             </script>
             <script src="<?= $jsUrls['mm']['url'] ?>"></script>
             <script src="<?= $jsUrls['ddTools']['url'] ?>"></script>
-            <script src="<?= MODX_SITE_URL . 'assets/plugins/managermanager/widgets/showimagetvs/jquery.ddMM.mm_widget_showimagetvs.js' ?>"></script>
+            <script src="<?= MODX_SITE_URL . 'assets/modules/clientsettings/core/js/tvimage.js' ?>"></script>
             <script>
                 <?= initJQddManagerManager(); ?>
 
