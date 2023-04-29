@@ -2,7 +2,7 @@
 
 class ClientSettings
 {
-    const VERSION = '2.1.2';
+    const VERSION = '2.2.0';
 
     private $corePath;
     private $params = [];

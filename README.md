@@ -6,4 +6,4 @@
 
 Для начала работы нужно переименовать файлы конфигурации `assets/modules/clientsettings/config/*.php.sample` в `*.php`.
 
-<img src="https://monosnap.com/file/yCajIZTcbBAawiI582hhO4TkYjMqWC.png">
+<img src="https://user-images.githubusercontent.com/3579847/234930421-3f9a4725-5a95-4682-a69a-2cb3d71227af.png">
