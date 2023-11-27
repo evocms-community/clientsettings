@@ -3,6 +3,7 @@
 </h1>
 
 <form name="settings" method="post" id="mutate">
+    <?= csrf_field() ?>
     <div id="actions">
         <div class="btn-group">
             <div class="btn-group dropdown">
