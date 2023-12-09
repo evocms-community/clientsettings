@@ -88,6 +88,9 @@
                                                 }
                                             ?>
                                         </optgroup>
+													 <optgroup label="divider">
+                                            <option value="divider" <?= ($value['type'] == 'divider' ? "selected='selected'" : "") ?>>Divider</option>
+                                        </optgroup>
                                     </select>
                                 </td>
                                 <td class="tableHeader">
