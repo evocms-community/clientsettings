@@ -4,7 +4,7 @@
  * Customizable set of fields for user settings
  *
  * @category    module
- * @version     2.2.0
+ * @version     2.2.1
  * @author      mnoskov
  * @internal	@guid clsee234523g354f542t5t
  * @internal    @properties &prefix=Prefix for settings;text;client_ &config_path=Path to configuration files;text;

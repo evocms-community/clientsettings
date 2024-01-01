@@ -127,5 +127,6 @@
     }
 </script>
 
-<link href="<?= $modx->getConfig('base_url') ?>assets/modules/clientsettings/core/css/editor.css?<?= $version ?>" rel="stylesheet">
-<script src="<?= $modx->getConfig('base_url') ?>assets/modules/clientsettings/core/js/editor.js?<?= $version ?>"></script>
+<script src="<?= MODX_SITE_URL ?>assets/js/sortable/Sortable.min.js?<?= $version ?>"></script>
+<link href="<?= MODX_SITE_URL ?>assets/modules/clientsettings/core/css/editor.css?<?= $version ?>" rel="stylesheet">
+<script src="<?= MODX_SITE_URL ?>assets/modules/clientsettings/core/js/editor.js?<?= $version ?>"></script>

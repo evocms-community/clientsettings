@@ -1,5 +1,6 @@
 (function($) {
-    $(document).on('click', '.add_tab', function() {
+    $(document).on('click', '.add_tab', function(e) {
+        e.preventDefault();
         var tab = $('.tab-setting').eq(0).html();
         $(this).closest('.tab-setting').after('<div class="tab-setting new_tab">'+tab+'</div>');
         $('.new_tab input, .new_tab select').val('');
@@ -8,12 +9,17 @@
             if (i>0) $(this).remove();
             i = 1;
         });
+        
+        new Sortable($('.new_tab .sort-str').get(0), {
+            onEnd: reset_index
+        })
+        
         reset_index();
-
     });
 
 
-    $(document).on('click', '.add_field', function() {
+    $(document).on('click', '.add_field', function(e) {
+        e.preventDefault();
         var tr = $(this).closest('tr').html();
         $(this).closest('tr').after('<tr class="news_str">'+tr+'</tr>');
         $('.news_str').children('td').each(function() {
@@ -23,24 +29,24 @@
         reset_index();
     });
 
-    $(document).on('click', '.remove_field', function() {
+    $(document).on('click', '.remove_field', function(e) {
+        e.preventDefault();
         var c = $(this).closest('tbody').children('tr').length;
         if (c>1) $(this).closest('tr').remove();
     });
 
-    $(document).on('click', '.remove_tab', function() {
+    $(document).on('click', '.remove_tab', function(e) {
+        e.preventDefault();
         $(this).closest('.tab-setting').remove();
         reset_index();
     });
 
-    $('.sort-str').sortable({
-      stop: function(event, ui) {reset_index();}
-    });
-
-    $('.tab-settings').sortable({
-      stop: function(event, ui) {reset_index();}
-    });
-
+    let sortables = document.getElementsByClassName('sort-str');
+    for (let i = 0; i < sortables.length; i++) {
+        new Sortable(sortables[i], {
+            onEnd: reset_index
+        })
+    }
 
     function reset_index() {
         var ind = 10;
