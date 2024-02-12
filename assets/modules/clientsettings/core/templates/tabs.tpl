@@ -43,7 +43,7 @@
                 <?php else: ?>
 					<div class="col  <?= $options['class'] ?> ">
 						<div class="row">
-							<div class="warning col-sm-4 col-md-3 h5">
+							<div class="warning col-sm-4 col-md-3 col-lg-2 h5">
 								<?php if ($options['type'] === 'title'): ?>
 									<div class="text-nowrap mb-1 ">
 										<?= $options['caption'] ?>
@@ -54,7 +54,7 @@
 								<?php endif; ?>
 							</div>
 
-							<div class="col-sm-8 col-md-9 mb-2" data-type="<?= $options['type'] ?>">
+							<div class="col-sm-8 col-md-9 col-lg-10 mb-2" data-type="<?= $options['type'] ?>">
 								<?php if ($options['type'] !== 'title'): ?>
 									<?php
 										$value = isset($modx->config[$params['prefix'] . $field]) ? $modx->config[$params['prefix'] . $field] : false;
