@@ -8,14 +8,14 @@
         <div class="btn-group">
             <div class="btn-group dropdown">
                 <a id="Button1" class="btn btn-success" href="javascript:;" onclick="save_settings();">
-                    <i class="fa fa-floppy-o"></i><span><?= $_lang['save'] ?></span>
+                    <i class="fa fa-floppy-o"></i><span><?= $_lang['cs.save'] ?></span>
                 </a>
 
                 <span class="btn btn-success plus dropdown-toggle"></span>
 
                 <select id="stay" name="stay">
-                    <option id="stay2" value="2" <?= $stay == '2' ? ' selected="selected"' : '' ?>><?= $_lang['stay'] ?></option>
-                    <option id="stay3" value="" <?= $stay == '' ? ' selected="selected"' : '' ?>><?= $_lang['close'] ?></option>
+                    <option id="stay2" value="2" <?= $stay == '2' ? ' selected="selected"' : '' ?>><?= $_lang['cs.stay'] ?></option>
+                    <option id="stay3" value="" <?= $stay == '' ? ' selected="selected"' : '' ?>><?= $_lang['cs.close'] ?></option>
                 </select>
             </div>
 
@@ -26,7 +26,7 @@
             <?php endif; ?>
 
             <a id="Button5" class="btn btn-secondary" href="<?= $managerPath ?>index.php?a=2">
-                <i class="fa fa-times-circle"></i><span><?= $_lang['cancel'] ?></span>
+                <i class="fa fa-times-circle"></i><span><?= $_lang['cs.cancel'] ?></span>
             </a>
         </div>
     </div>

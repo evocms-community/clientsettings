@@ -358,39 +358,9 @@ class ClientSettings
             $modx  = EvolutionCMS();
             $_lang = [];
 
-            $aliases = [
-                'bg' => 'bulgarian',
-                'zh' => 'chinese',
-                'cs' => 'czech',
-                'da' => 'danish',
-                'en' => 'english',
-                'fi' => 'finnish',
-                'fr' => 'francais-utf8',
-                'de' => 'german',
-                'he' => 'hebrew',
-                'it' => 'italian',
-                'jp' => 'japanese-utf8',
-                'nl' => 'nederlands-utf8',
-                'no' => 'norsk',
-                'fa' => 'persian',
-                'pl' => 'polish-utf8',
-                'pt' => 'portuguese-br-utf8',
-                'ru' => 'russian-UTF8',
-                'es' => 'spanish-utf8',
-                'sv' => 'svenska-utf8',
-                'uk' => 'ukrainian'
-            ];
+            $userlang = $modx->getLocale();
 
-            $userlang = $modx->getConfig('manager_language');
-
-            if (isset($aliases[$userlang])) {
-                include EVO_CORE_PATH . 'lang/' . $userlang . '/global.php';
-                $userlang = $aliases[$userlang];
-            } else {
-                include MODX_MANAGER_PATH . 'includes/lang/' . $userlang . '.inc.php';
-            }
-
-            foreach ([$userlang, 'english'] as $l) {
+            foreach ([$userlang, 'en'] as $l) {
                 if (is_readable($this->corePath . 'lang/' . $l . '/cs.inc.php')) {
                     $lang = include $this->corePath . 'lang/' . $l . '/cs.inc.php';
                     break;
