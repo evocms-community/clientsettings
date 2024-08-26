@@ -1,4 +1,4 @@
-<style> 
+<style>
 	.clSettings .hr { display:flex; flex-wrap:nowrap; align-items: center; margin: 0 -0.25rem;}
 	.clSettings .hr:after {content:''; border-bottom: #ddd 1px solid; margin: 1rem 0; width:100%; }
 	.clSettings .col { display:flex; flex-basis: 100%; align-items: flex-start;}
@@ -20,7 +20,20 @@
 	.clSettings .col[class*='col-xl-'] >.row > [class*='col-']{ max-width:100%; min-width:100%;}
 	.clSettings .col[class*='col-xl-'] .warning small {display: inline-flex;}
 	}
+    .image_for_field[data-image] { display: block; content: ""; width: 120px; height: 120px; margin: .1rem .1rem 0 0; border: 1px #ccc solid; background: #fff 50% 50% no-repeat; background-size: contain; cursor: pointer }
+    .image_for_field[data-image=""] { display: none }
 </style>
+<script>
+    function evoRenderTvImageCheck (a) {
+        var b = document.getElementById('image_for_' + a.target.id),
+            c = new Image
+        a.target.value ? (c.src = (a.target.value.search(/^https?:\/\//i) < 0 ? "<?php echo evo()->getConfig('site_url')?>" : '') + a.target.value, c.onerror = function () {
+            b.style.backgroundImage = '', b.setAttribute('data-image', '')
+        }, c.onload = function () {
+            b.style.backgroundImage = 'url(\'' + this.src + '\')', b.setAttribute('data-image', this.src)
+        }) : (b.style.backgroundImage = '', b.setAttribute('data-image', ''))
+    }
+</script>
 <?php foreach ($tabs as $name => $tab): ?>
     <div class="tab-page clSettings" id="tab_<?= $name ?>">
         <h2 class="tab"><?= $tab['caption'] ?></h2>
@@ -49,7 +62,7 @@
 										<?= $options['caption'] ?>
 									</div>
 								<?php else: ?>
-									<?= $options['caption'] ?> 
+									<?= $options['caption'] ?>
 									<small class="text-nowrap text-black-50 pt-1">[(<?= $params['prefix'] . $field ?>)]</small>
 								<?php endif; ?>
 							</div>
@@ -129,7 +142,6 @@ if (is_readable($mmPath)) {
 ?>
 
 <?= $modx->manager->loadDatePicker($modx->getConfig('mgr_date_picker_path')) ?>
-
 <script>
     jQuery('input.DatePicker').each(function() {
         new DatePicker(this, {
@@ -146,5 +158,3 @@ if (is_readable($mmPath)) {
         document.settings.save.click();
     }
 </script>
-
-        
