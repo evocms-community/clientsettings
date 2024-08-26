@@ -54,7 +54,7 @@
                             <h4 class="hr text-nowrap"><div class="text-nowrap mr-3"><?= $options['caption'] ?></div></h4>
                         </div>
                 <?php else: ?>
-					<div class="col  <?= $options['class'] ?> ">
+					<div class="col  <?= $options['class'] ?? '' ?> ">
 						<div class="row">
 							<div class="warning col-sm-4 col-md-3 col-lg-2 h5">
 								<?php if ($options['type'] === 'title'): ?>
