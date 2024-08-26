@@ -384,6 +384,7 @@ class ClientSettings
 
         $modx   = EvolutionCMS();
         $managerPath = $modx->getManagerPath();
+        $modx_manager_charset = evo()->getConfig('modx_charset', 'utf-8');
         $version = self::VERSION;
         $stay   = $_REQUEST['stay'];
         $_lang  = $this->loadLang();
