@@ -115,7 +115,7 @@
 
 $mmPath = MODX_BASE_PATH . 'assets/plugins/managermanager/mm.inc.php';
 
-if (is_readable($mmPath)) {
+if (is_readable($mmPath) && !function_exists('app')) {
     include_once $mmPath;
 
     if (isset($jsUrls['ddTools'])) {
