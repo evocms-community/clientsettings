@@ -124,8 +124,8 @@ class ClientSettings
 
                 if (isset($data[$postfield])) {
                     $value = $data[$postfield];
-                } else if (isset($tab['settings'][$field]['default_value'])) {
-                    $value = $tab['settings'][$field]['default_value'];
+                } else if (isset($tab['settings'][$field]['default_text'])) {
+                    $value = $tab['settings'][$field]['default_text'];
                 } else {
                     $value = '';
                 }
